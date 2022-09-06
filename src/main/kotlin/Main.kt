@@ -7,6 +7,7 @@ import burp.api.montoya.http.*
 import burp.api.montoya.http.message.requests.HttpRequest
 import burp.api.montoya.http.message.responses.HttpResponse
 import burp.api.montoya.logging.Logging
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.*
 
 class MyHTTPHandler(private val http: Http, private val logging: Logging) : HttpHandler {
@@ -27,7 +28,7 @@ class MyHTTPHandler(private val http: Http, private val logging: Logging) : Http
 
         val jsonBody = Json.parseToJsonElement(resp.bodyAsString())
 
-        val newJson = traverse(jsonBody) { f(it) }
+        val newJson = traverse(jsonBody) { parseNested(it) }
 
         val newResp = http.createResponse(resp.headers().map{it.toString()}, newJson.toString())
 
@@ -35,14 +36,19 @@ class MyHTTPHandler(private val http: Http, private val logging: Logging) : Http
     }
 }
 
-fun f(x: JsonPrimitive): JsonPrimitive {
-    if (x.isString) {
-        return JsonPrimitive("hello, world!")
+fun parseNested(x: JsonPrimitive): JsonElement {
+    val regex = Regex("""^ *[\[{]""")
+    if (x.isString && regex.containsMatchIn(x.content)) {
+        return try {
+            Json.parseToJsonElement(x.content)
+        } catch (e: SerializationException){
+            x
+        }
     }
     return x
 }
 
-fun traverse(json: JsonElement, func: (JsonPrimitive) -> JsonPrimitive): JsonElement {
+fun traverse(json: JsonElement, func: (JsonPrimitive) -> JsonElement): JsonElement {
     return when (json) {
         is JsonNull -> json
         is JsonPrimitive -> func(json)
