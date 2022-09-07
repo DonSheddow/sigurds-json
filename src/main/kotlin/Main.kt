@@ -9,8 +9,11 @@ import burp.api.montoya.http.message.responses.HttpResponse
 import burp.api.montoya.logging.Logging
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.*
+import java.awt.event.ItemEvent
+import java.util.concurrent.atomic.AtomicBoolean
+import javax.swing.*
 
-class MyHTTPHandler(private val http: Http, private val logging: Logging) : HttpHandler {
+class MyHTTPHandler(private val http: Http, private val doIntercept: AtomicBoolean) : HttpHandler {
     override fun handleHttpRequest(req: HttpRequest?, annotations: MessageAnnotations, src: ToolSource?): RequestHandlerResult {
         return RequestHandlerResult.from(req, annotations)
     }
@@ -22,7 +25,7 @@ class MyHTTPHandler(private val http: Http, private val logging: Logging) : Http
         src: ToolSource
     ): ResponseHandlerResult {
         val mimeType = resp.statedMimeType()
-        if (!src.isFromTool(ToolType.REPEATER) || mimeType != MimeType.JSON) {
+        if (!src.isFromTool(ToolType.REPEATER) || mimeType != MimeType.JSON || !doIntercept.get()) {
             return ResponseHandlerResult.from(resp, annotations)
         }
 
@@ -67,7 +70,36 @@ class Extension : BurpExtension {
 
         api.misc().setExtensionName("Sigurds Extension")
 
+        val doIntercept = AtomicBoolean(true)
+
         val http = api.http()
-        http.registerHttpHandler(MyHTTPHandler(http, logging))
+        http.registerHttpHandler(MyHTTPHandler(http, doIntercept))
+
+        SwingUtilities.invokeLater {
+            val tab = CheckBoxEx(logging, doIntercept)
+            tab.isVisible = true
+            api.userInterface().registerSuiteTab("Sigurds Extension", tab)
+        }
+    }
+}
+
+
+class CheckBoxEx(logging: Logging, doIntercept: AtomicBoolean) : JPanel() {
+    init {
+        val checkBox = JCheckBox("Rewrite nested JSON", true)
+
+        checkBox.addItemListener { e ->
+            val sel: Int = e.stateChange
+
+            if (sel == ItemEvent.SELECTED) {
+                logging.logToOutput("Rewriting nested JSON in Repeater")
+                doIntercept.set(true)
+            } else {
+                logging.logToOutput("Rewriting is now disabled")
+                doIntercept.set(false)
+            }
+        }
+
+        add(checkBox)
     }
 }
