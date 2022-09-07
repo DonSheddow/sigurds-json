@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Second commit">
+    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Add checkbox">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
     </list>
@@ -134,7 +134,13 @@
       <option name="presentableId" value="LOCAL−00002" />
       <updated>1662471524227</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL−00003" summary="Add checkbox">
+      <created>1662543052640</created>
+      <option name="number" value="LOCAL−00003" />
+      <option name="presentableId" value="LOCAL−00003" />
+      <updated>1662543052640</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -151,7 +157,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />
     <MESSAGE value="Second commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Second commit" />
+    <MESSAGE value="Add checkbox" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add checkbox" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

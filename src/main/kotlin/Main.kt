@@ -1,5 +1,6 @@
 import burp.api.montoya.BurpExtension
 import burp.api.montoya.MontoyaApi
+import burp.api.montoya.core.HighlightColor
 import burp.api.montoya.core.MessageAnnotations
 import burp.api.montoya.core.ToolSource
 import burp.api.montoya.core.ToolType
@@ -29,13 +30,17 @@ class MyHTTPHandler(private val http: Http, private val doIntercept: AtomicBoole
             return ResponseHandlerResult.from(resp, annotations)
         }
 
-        val jsonBody = Json.parseToJsonElement(resp.bodyAsString())
-
-        val newJson = traverse(jsonBody) { parseNested(it) }
+        val oldJson = Json.parseToJsonElement(resp.bodyAsString())
+        val newJson = traverse(oldJson) { parseNested(it) }
 
         val newResp = http.createResponse(resp.headers().map{it.toString()}, newJson.toString())
 
-        return ResponseHandlerResult.from(newResp, annotations)
+        val wasRewritten = oldJson.toString() != newJson.toString()
+        return if (wasRewritten) {
+            ResponseHandlerResult.from(newResp, annotations.withComment("JSON response has been rewritten").withHighlightColor(HighlightColor.BLUE))
+        } else {
+            ResponseHandlerResult.from(resp, annotations)
+        }
     }
 }
 
@@ -66,7 +71,6 @@ fun traverse(json: JsonElement, func: (JsonPrimitive) -> JsonElement): JsonEleme
 class Extension : BurpExtension {
     override fun initialise(api: MontoyaApi) {
         val logging = api.logging()
-        logging.logToOutput("Loaded extension")
 
         api.misc().setExtensionName("Sigurds Extension")
 
@@ -75,18 +79,16 @@ class Extension : BurpExtension {
         val http = api.http()
         http.registerHttpHandler(MyHTTPHandler(http, doIntercept))
 
-        SwingUtilities.invokeLater {
-            val tab = CheckBoxEx(logging, doIntercept)
-            tab.isVisible = true
-            api.userInterface().registerSuiteTab("Sigurds Extension", tab)
-        }
+        val tab = CheckBoxEx(logging, doIntercept)
+        tab.isVisible = true
+        api.userInterface().registerSuiteTab("Sigurds Extension", tab)
     }
 }
 
 
 class CheckBoxEx(logging: Logging, doIntercept: AtomicBoolean) : JPanel() {
     init {
-        val checkBox = JCheckBox("Rewrite nested JSON", true)
+        val checkBox = JCheckBox("Rewrite nested JSON in Repeater", true)
 
         checkBox.addItemListener { e ->
             val sel: Int = e.stateChange
