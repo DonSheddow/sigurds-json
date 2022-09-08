@@ -36,13 +36,12 @@ class ContextMenu(private val logging: Logging, private val http: Http) : Contex
         return if (event.isFrom(InvocationType.MESSAGE_EDITOR_REQUEST)) {
             val menuItem = JMenuItem("Parse nested JSON")
             menuItem.addActionListener {
-                logging.logToOutput("Clicked menu item")
                 val msgEditor = event.messageEditorRequestResponse().get()
                 val req = msgEditor.requestResponse.httpRequest()
                 val oldJson = Json.parseToJsonElement(req.bodyAsString())
-                val newJson = flattenJson(oldJson)
+                val newBody = flattenJsonWithMagicTags(oldJson)
 
-                val newReq = http.createRequest(req.httpService(), req.headers().map{it.toString()}, newJson.toString())
+                val newReq = http.createRequest(req.httpService(), req.headers().map{it.toString()}, newBody)
 
                 msgEditor.setRequest(newReq)
             }
