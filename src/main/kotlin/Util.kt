@@ -29,7 +29,6 @@ fun traverse(json: JsonElement, func: (JsonPrimitive) -> JsonElement): JsonEleme
 private val prettyJson = Json { prettyPrint = true }
 private val indent = "    "
 
-// TODO: fix bugs and insert tags
 fun flattenJsonWithMagicTags(json: JsonElement): String {
     return when (json) {
         is JsonNull -> "null"
@@ -54,7 +53,7 @@ fun flattenJsonWithMagicTags(json: JsonElement): String {
             "{\n" +
             json.entries.map { (key, value) ->
                 indent + "\"${key}\"" + ": " + flattenJsonWithMagicTags(value)
-            }.joinToString(", ") + "\n}"
+            }.joinToString(",\n") + "\n}"
         }
     }
 }

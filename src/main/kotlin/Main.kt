@@ -2,6 +2,9 @@ import burp.api.montoya.BurpExtension
 import burp.api.montoya.MontoyaApi
 import java.util.concurrent.atomic.AtomicBoolean
 
+// TODO: Rewrite nested XML in request and response
+// TODO: Add tab in proxy for rewritten responses
+
 @Suppress("unused")
 class Extension : BurpExtension {
     override fun initialise(api: MontoyaApi) {

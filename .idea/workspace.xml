@@ -9,12 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Add context menu item">
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/UtilKtTest.kt" afterDir="false" />
+    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Add JSON parsing to requests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Http.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Http.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Ui.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Ui.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Util.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Util.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/UtilKtTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/UtilKtTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +87,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.3770115",
-    "settings.editor.selected.configurable": "com.maddyhome.idea.vim.ui.VimEmulationConfigurable"
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -99,7 +98,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.extension4 [jar]">
+  <component name="RunManager" selected="Gradle.extension4 [testClasses]">
     <configuration name="UtilKtTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -213,8 +212,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.extension4 [jar]" />
         <item itemvalue="Gradle.extension4 [testClasses]" />
+        <item itemvalue="Gradle.extension4 [jar]" />
         <item itemvalue="Gradle.UtilKtTest" />
         <item itemvalue="Gradle.UtilKtTest.flattenJsonWithMagicTags1" />
         <item itemvalue="Gradle.UtilKtTest.flattenJsonWithMagicTags2" />
@@ -260,7 +259,13 @@
       <option name="presentableId" value="LOCAL−00005" />
       <updated>1662552462008</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL−00006" summary="Add JSON parsing to requests">
+      <created>1662639759479</created>
+      <option name="number" value="LOCAL−00006" />
+      <option name="presentableId" value="LOCAL−00006" />
+      <updated>1662639759479</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -280,7 +285,8 @@
     <MESSAGE value="Add checkbox" />
     <MESSAGE value="Add comment and highlight in logger" />
     <MESSAGE value="Add context menu item" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add context menu item" />
+    <MESSAGE value="Add JSON parsing to requests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add JSON parsing to requests" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

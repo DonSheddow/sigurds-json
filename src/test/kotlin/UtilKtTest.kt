@@ -21,16 +21,16 @@ internal class UtilKtTest {
         val input3 = """{
             |    "a": "b"
             |}""".trimMargin()
-        //val input3 = Json.parseToJsonElement("""{"a": "b"}""")
         val output3 = flattenJsonWithMagicTags(Json.parseToJsonElement(input3))
         assertEquals(input3, output3)
     }
 
     @Test
     fun flattenJsonWithMagicTags2() {
-        val input = """{"a": "{\"x\": \"y\"}"}"""
+        val input = """{"b": 123, "a": "{\"x\": \"y\"}"}"""
         val expected = """
             {
+                "b": 123,
                 "a": <<<START_JSON_ENCODING>>>
             {
                 "x": "y"
