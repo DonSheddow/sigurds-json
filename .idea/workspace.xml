@@ -9,10 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Simplify JSON parsing and printing">
+    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Fix indentation of JSON objects and arrays">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Http.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Http.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Util.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Util.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/UtilKtTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/UtilKtTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -280,7 +280,13 @@
       <option name="presentableId" value="LOCAL−00008" />
       <updated>1662714710293</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL−00009" summary="Fix indentation of JSON objects and arrays">
+      <created>1662716664439</created>
+      <option name="number" value="LOCAL−00009" />
+      <option name="presentableId" value="LOCAL−00009" />
+      <updated>1662716664439</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -303,7 +309,8 @@
     <MESSAGE value="Add JSON parsing to requests" />
     <MESSAGE value="Fix JSON pretty printing" />
     <MESSAGE value="Simplify JSON parsing and printing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Simplify JSON parsing and printing" />
+    <MESSAGE value="Fix indentation of JSON objects and arrays" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix indentation of JSON objects and arrays" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

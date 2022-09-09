@@ -5,11 +5,11 @@ import kotlinx.serialization.json.*
 private val prettyJson = Json { prettyPrint = true }
 private const val indent = "    "
 
-fun parseObjectOrArray(x: JsonPrimitive): JsonElement? {
+fun parseObjectOrArray(s: String): JsonElement? {
     val regex = Regex("""^ *[\[{]""")
-    if (x.isString && regex.containsMatchIn(x.content)) {
+    if (regex.containsMatchIn(s)) {
         return try {
-            Json.parseToJsonElement(x.content)
+            Json.parseToJsonElement(s)
         } catch (e: SerializationException){
             null
         }
@@ -17,11 +17,16 @@ fun parseObjectOrArray(x: JsonPrimitive): JsonElement? {
     return null
 }
 
-fun prettyPrintWithInnerParse(json: JsonElement, parse: (JsonPrimitive) -> String?): String {
+fun prettyPrintWithInnerParse(json: JsonElement, parse: (String) -> String?): String {
     return when (json) {
         is JsonNull -> "null"
         is JsonPrimitive -> {
-            parse(json) ?: json.toString()
+            if (json.isString) {
+                parse(json.content) ?: json.toString()
+            }
+            else {
+                json.toString()
+            }
         }
         is JsonArray -> {
             "[\n" + json.joinToString(",\n") {
@@ -40,17 +45,17 @@ fun prettyPrintWithInnerParse(json: JsonElement, parse: (JsonPrimitive) -> Strin
 }
 
 fun flattenJsonWithMagicTags(json: JsonElement): String {
-    return prettyPrintWithInnerParse(json) {
-        parseObjectOrArray(it)?.let {
+    return prettyPrintWithInnerParse(json) { s ->
+        parseObjectOrArray(s)?.let { elem ->
             "<<<START_JSON_ENCODING>>>\n" +
-            prettyJson.encodeToString(it) +
+            prettyJson.encodeToString(elem) +
             "\n<<<STOP_JSON_ENCODING>>>"
         }
     }
 }
 
 fun flattenJson(json: JsonElement): String {
-    return prettyPrintWithInnerParse(json) {
-        parseObjectOrArray(it)?.let { prettyJson.encodeToString(it) }
+    return prettyPrintWithInnerParse(json) {s ->
+        parseObjectOrArray(s)?.let { prettyJson.encodeToString(it) }
     }
 }
