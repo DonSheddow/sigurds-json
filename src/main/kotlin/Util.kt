@@ -26,14 +26,14 @@ fun prettyPrintWithInnerParse(json: JsonElement, parse: (JsonPrimitive) -> Strin
         is JsonArray -> {
             "[\n" + json.joinToString(",\n") {
                     x: JsonElement ->
-                prettyPrintWithInnerParse(x, parse).lines().joinToString { indent + it }
+                prettyPrintWithInnerParse(x, parse).lines().joinToString("\n") { indent + it }
             } + "\n]"
         }
         is JsonObject -> {
             "{\n" +
                     json.entries.joinToString(",\n") { (key, value) ->
-                        indent + "\"${key}\"" + ": " + prettyPrintWithInnerParse(value, parse)
-                    } + "\n}"
+                        "\"${key}\"" + ": " + prettyPrintWithInnerParse(value, parse)
+                    }.lines().joinToString("\n") { indent + it } + "\n}"
         }
     }
 
@@ -51,6 +51,6 @@ fun flattenJsonWithMagicTags(json: JsonElement): String {
 
 fun flattenJson(json: JsonElement): String {
     return prettyPrintWithInnerParse(json) {
-        parseObjectOrArray(it)?.toString()
+        parseObjectOrArray(it)?.let { prettyJson.encodeToString(it) }
     }
 }

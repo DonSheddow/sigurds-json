@@ -9,9 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Fix JSON pretty printing">
+    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Simplify JSON parsing and printing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Util.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Util.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/UtilKtTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/UtilKtTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +47,12 @@
                 <item name="extension4" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="extension4" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="verification" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -96,8 +103,8 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.extension4 [testClasses]">
-    <configuration name="UtilKtTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.extension4 [test]">
+    <configuration name="UtilKtTest.flattenJson2" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -110,30 +117,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;UtilKtTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="UtilKtTest.flattenJsonWithMagicTags1" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;UtilKtTest.flattenJsonWithMagicTags1&quot;" />
+            <option value="&quot;UtilKtTest.flattenJson2&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -166,7 +150,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="extension4 [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="extension4 [check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -177,7 +161,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="jar" />
+            <option value="check" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -208,13 +192,34 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="extension4 [test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.extension4 [testClasses]" />
-        <item itemvalue="Gradle.extension4 [jar]" />
-        <item itemvalue="Gradle.UtilKtTest" />
-        <item itemvalue="Gradle.UtilKtTest.flattenJsonWithMagicTags1" />
+        <item itemvalue="Gradle.extension4 [test]" />
+        <item itemvalue="Gradle.UtilKtTest.flattenJson2" />
+        <item itemvalue="Gradle.extension4 [check]" />
         <item itemvalue="Gradle.UtilKtTest.flattenJsonWithMagicTags2" />
+        <item itemvalue="Gradle.extension4 [testClasses]" />
       </list>
     </recent_temporary>
   </component>
@@ -269,7 +274,13 @@
       <option name="presentableId" value="LOCAL−00007" />
       <updated>1662710158431</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL−00008" summary="Simplify JSON parsing and printing">
+      <created>1662714710293</created>
+      <option name="number" value="LOCAL−00008" />
+      <option name="presentableId" value="LOCAL−00008" />
+      <updated>1662714710293</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -291,7 +302,8 @@
     <MESSAGE value="Add context menu item" />
     <MESSAGE value="Add JSON parsing to requests" />
     <MESSAGE value="Fix JSON pretty printing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix JSON pretty printing" />
+    <MESSAGE value="Simplify JSON parsing and printing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Simplify JSON parsing and printing" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

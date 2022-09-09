@@ -32,14 +32,56 @@ internal class UtilKtTest {
             {
                 "b": 123,
                 "a": <<<START_JSON_ENCODING>>>
-            {
-                "x": "y"
-            }
-            <<<STOP_JSON_ENCODING>>>
+                {
+                    "x": "y"
+                }
+                <<<STOP_JSON_ENCODING>>>
             }
         """.trimIndent()
 
         val output = flattenJsonWithMagicTags(Json.parseToJsonElement(input))
+        assertEquals(expected, output)
+    }
+
+    @Test
+    fun flattenJson1() {
+        val input = """{"x": 1, "a": {"b": {"c": 42}}, "nested": "{\"hello\": \"world\"}"}"""
+        val expected = """
+            {
+                "x": 1,
+                "a": {
+                    "b": {
+                        "c": 42
+                    }
+                },
+                "nested": {
+                    "hello": "world"
+                }
+            }
+        """.trimIndent()
+        val output = flattenJson(Json.parseToJsonElement(input))
+        assertEquals(expected, output)
+    }
+    @Test
+    fun flattenJson2() {
+        val input = """[123, "hello", [1, 2, 3], "[\"a\", \"b\", \"c\"]"]"""
+        val expected = """
+            [
+                123,
+                "hello",
+                [
+                    1,
+                    2,
+                    3
+                ],
+                [
+                    "a",
+                    "b",
+                    "c"
+                ]
+            ]
+        """.trimIndent()
+        val output = flattenJson(Json.parseToJsonElement(input))
         assertEquals(expected, output)
     }
 }
