@@ -41,9 +41,9 @@ class MyHTTPHandler(private val http: Http, private val doIntercept: AtomicBoole
         val oldJson = Json.parseToJsonElement(resp.bodyAsString())
         val newJson = flattenJson(oldJson)
 
-        val newResp = http.createResponse(resp.headers().map{it.toString()}, newJson.toString())
+        val newResp = http.createResponse(resp.headers().map{it.toString()}, newJson)
 
-        val wasRewritten = oldJson.toString() != newJson.toString()
+        val wasRewritten = oldJson.toString() != newJson
         return if (wasRewritten) {
             ResponseHandlerResult.from(newResp, annotations.withComment("JSON response has been rewritten").withHighlightColor(
                 HighlightColor.BLUE))
