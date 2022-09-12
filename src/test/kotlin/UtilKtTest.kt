@@ -8,20 +8,20 @@ internal class UtilKtTest {
     @Test
     fun flattenJsonWithMagicTags1() {
         val input = JsonNull
-        val output = flattenJsonWithMagicTags(input)
+        val output = rewriteNestedJsonWithMagicTags(input)
         assertEquals("null", output)
 
         val input2 = """[
             |    "hello",
             |    "world"
             |]""".trimMargin()
-        val output2 = flattenJsonWithMagicTags(Json.parseToJsonElement(input2))
+        val output2 = rewriteNestedJsonWithMagicTags(Json.parseToJsonElement(input2))
         assertEquals(input2, output2)
 
         val input3 = """{
             |    "a": "b"
             |}""".trimMargin()
-        val output3 = flattenJsonWithMagicTags(Json.parseToJsonElement(input3))
+        val output3 = rewriteNestedJsonWithMagicTags(Json.parseToJsonElement(input3))
         assertEquals(input3, output3)
     }
 
@@ -39,7 +39,7 @@ internal class UtilKtTest {
             }
         """.trimIndent()
 
-        val output = flattenJsonWithMagicTags(Json.parseToJsonElement(input))
+        val output = rewriteNestedJsonWithMagicTags(Json.parseToJsonElement(input))
         assertEquals(expected, output)
     }
 
@@ -59,7 +59,7 @@ internal class UtilKtTest {
                 }
             }
         """.trimIndent()
-        val output = flattenJson(Json.parseToJsonElement(input))
+        val output = rewriteNestedJson(Json.parseToJsonElement(input))
         assertEquals(expected, output)
     }
     @Test
@@ -81,7 +81,22 @@ internal class UtilKtTest {
                 ]
             ]
         """.trimIndent()
-        val output = flattenJson(Json.parseToJsonElement(input))
+        val output = rewriteNestedJson(Json.parseToJsonElement(input))
+        assertEquals(expected, output)
+    }
+
+    @Test
+    fun prettyPrintXmlInJson() {
+        val input = """{"a": "b", "xml": "<a>\n<b></b>\n</a>"}"""
+        val expected = """
+            {
+                "a": "b",
+                "xml": <a>
+                <b></b>
+                </a>
+            }
+        """.trimIndent()
+        val output = prettyPrintXmlInJson(Json.parseToJsonElement(input))
         assertEquals(expected, output)
     }
 }

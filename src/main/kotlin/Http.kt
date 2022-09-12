@@ -39,7 +39,7 @@ class MyHTTPHandler(private val http: Http, private val doIntercept: AtomicBoole
         }
 
         val oldJson = Json.parseToJsonElement(resp.bodyAsString())
-        val newJson = flattenJson(oldJson)
+        val newJson = rewriteNestedJson(oldJson)
 
         val newResp = http.createResponse(resp.headers().map{it.toString()}, newJson)
 

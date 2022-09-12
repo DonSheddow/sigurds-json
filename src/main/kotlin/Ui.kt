@@ -6,9 +6,7 @@ import burp.api.montoya.ui.contextmenu.InvocationType
 import kotlinx.serialization.json.Json
 import java.awt.event.ItemEvent
 import java.util.concurrent.atomic.AtomicBoolean
-import javax.swing.JCheckBox
-import javax.swing.JMenuItem
-import javax.swing.JPanel
+import javax.swing.*
 
 class SuiteTab(logging: Logging, doIntercept: AtomicBoolean) : JPanel() {
     init {
@@ -39,7 +37,7 @@ class ContextMenu(private val logging: Logging, private val http: Http) : Contex
                 val msgEditor = event.messageEditorRequestResponse().get()
                 val req = msgEditor.requestResponse.httpRequest()
                 val oldJson = Json.parseToJsonElement(req.bodyAsString())
-                val newBody = flattenJsonWithMagicTags(oldJson)
+                val newBody = rewriteNestedJsonWithMagicTags(oldJson)
 
                 val newReq = http.createRequest(req.httpService(), req.headers().map{it.toString()}, newBody)
 
