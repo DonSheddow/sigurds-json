@@ -5,46 +5,69 @@ import burp.api.montoya.ui.contextmenu.ContextMenuItemsProvider
 import burp.api.montoya.ui.contextmenu.InvocationType
 import kotlinx.serialization.json.Json
 import java.awt.event.ItemEvent
-import java.util.concurrent.atomic.AtomicBoolean
 import javax.swing.*
 
-class SuiteTab(logging: Logging, doIntercept: AtomicBoolean) : JPanel() {
+class SuiteTab(logging: Logging, private val settings: Settings) : JPanel() {
     init {
         isVisible = true
-        val checkBox = JCheckBox("Rewrite nested JSON in Repeater", true)
+        val checkBox1 = JCheckBox("Rewrite nested JSON in Repeater", true)
+        val checkBox2 = JCheckBox("Rewrite nested XML in Repeater", true)
 
-        checkBox.addItemListener { e ->
+        checkBox1.addItemListener { e ->
             val sel: Int = e.stateChange
 
             if (sel == ItemEvent.SELECTED) {
                 logging.logToOutput("Rewriting nested JSON in Repeater")
-                doIntercept.set(true)
+                settings.rewriteJson = true
             } else {
-                logging.logToOutput("Rewriting is now disabled")
-                doIntercept.set(false)
+                logging.logToOutput("JSON rewriting is now disabled")
+                settings.rewriteJson = false
             }
         }
 
-        add(checkBox)
+        checkBox2.addItemListener { e ->
+            val sel: Int = e.stateChange
+
+            if (sel == ItemEvent.SELECTED) {
+                logging.logToOutput("Rewriting nested XML in Repeater")
+                settings.rewriteXml = true
+            } else {
+                logging.logToOutput("XML rewriting is now disabled")
+                settings.rewriteXml = false
+            }
+        }
+
+        add(checkBox1)
+        add(checkBox2)
     }
 }
 
 class ContextMenu(private val logging: Logging, private val http: Http) : ContextMenuItemsProvider {
     override fun provideMenuItems(event: ContextMenuEvent): List<JMenuItem> {
         return if (event.isFrom(InvocationType.MESSAGE_EDITOR_REQUEST)) {
-            val menuItem = JMenuItem("Parse nested JSON")
-            menuItem.addActionListener {
+            val menuItem1 = JMenuItem("Parse nested JSON")
+            menuItem1.addActionListener {
                 val msgEditor = event.messageEditorRequestResponse().get()
                 val req = msgEditor.requestResponse.httpRequest()
                 val oldJson = Json.parseToJsonElement(req.bodyAsString())
                 val newBody = rewriteNestedJsonWithMagicTags(oldJson)
-
                 val newReq = http.createRequest(req.httpService(), req.headers().map{it.toString()}, newBody)
 
                 msgEditor.setRequest(newReq)
             }
 
-            listOf(menuItem)
+            val menuItem2 = JMenuItem("Parse nested XML")
+            menuItem2.addActionListener {
+                val msgEditor = event.messageEditorRequestResponse().get()
+                val req = msgEditor.requestResponse.httpRequest()
+                val oldJson = Json.parseToJsonElement(req.bodyAsString())
+                val newBody = rewriteXmlInJsonWithMagicTags(oldJson)
+                val newReq = http.createRequest(req.httpService(), req.headers().map{it.toString()}, newBody)
+
+                msgEditor.setRequest(newReq)
+            }
+
+            listOf(menuItem1, menuItem2)
         } else {
             emptyList()
         }

@@ -86,7 +86,7 @@ internal class UtilKtTest {
     }
 
     @Test
-    fun prettyPrintXmlInJson() {
+    fun rewriteXmlInJson() {
         val input = """{"a": "b", "xml": "<a>\n<b></b>\n</a>"}"""
         val expected = """
             {
@@ -96,7 +96,24 @@ internal class UtilKtTest {
                 </a>
             }
         """.trimIndent()
-        val output = prettyPrintXmlInJson(Json.parseToJsonElement(input))
+        val output = rewriteXmlInJson(Json.parseToJsonElement(input))
+        assertEquals(expected, output)
+    }
+
+    @Test
+    fun rewriteXmlInJsonWithMagicTags() {
+        val input = """{"a": "b", "xml": "<a>\n<b></b>\n</a>"}"""
+        val expected = """
+            {
+                "a": "b",
+                "xml": <<<START_JSON_ENCODING>>>
+                <a>
+                <b></b>
+                </a>
+                <<<STOP_JSON_ENCODING>>>
+            }
+        """.trimIndent()
+        val output = rewriteXmlInJsonWithMagicTags(Json.parseToJsonElement(input))
         assertEquals(expected, output)
     }
 }

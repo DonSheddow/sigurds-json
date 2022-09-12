@@ -6,7 +6,7 @@ private val prettyJson = Json { prettyPrint = true }
 private const val indent = "    "
 
 fun parseObjectOrArray(s: String): JsonElement? {
-    val regex = Regex("""^ *[\[{]""")
+    val regex = Regex("""^\s*[\[{]""")
     if (regex.containsMatchIn(s)) {
         return try {
             Json.parseToJsonElement(s)
@@ -59,12 +59,39 @@ fun rewriteNestedJson(json: JsonElement): String {
 }
 
 // TODO: better heuristic for XML in JSON
-fun prettyPrintXmlInJson(json: JsonElement): String {
+fun rewriteXmlInJson(json: JsonElement): String {
     return prettyPrintWithInnerParse(json) { s ->
-        if (s.count { it == '\n' } >= 2) {
+        if (looksLikeXml(s)) {
             s
         } else {
             null
         }
+    }
+}
+
+fun rewriteXmlInJsonWithMagicTags(json: JsonElement): String {
+    return prettyPrintWithInnerParse(json) { s ->
+        if (looksLikeXml(s)) {
+            "<<<START_JSON_ENCODING>>>\n" +
+                    s +
+                    "\n<<<STOP_JSON_ENCODING>>>"
+        } else {
+            null
+        }
+    }
+}
+
+fun looksLikeXml(s: String): Boolean {
+    val regexStart = Regex("""^\s*<""")
+    val regexEnd = Regex(""">\s*$""")
+    return regexStart.containsMatchIn(s) && regexEnd.containsMatchIn(s)
+}
+
+fun tryMinifyJson(s: String): String? {
+    return try {
+        Json.encodeToString(Json.parseToJsonElement(s))
+    }
+    catch (e: SerializationException) {
+        null
     }
 }

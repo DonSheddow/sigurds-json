@@ -1,8 +1,6 @@
 import burp.api.montoya.BurpExtension
 import burp.api.montoya.MontoyaApi
-import java.util.concurrent.atomic.AtomicBoolean
 
-// TODO: Rewrite nested XML in request and response
 // TODO: Add tab in proxy for rewritten responses
 
 @Suppress("unused")
@@ -14,11 +12,14 @@ class Extension : BurpExtension {
 
         api.misc().setExtensionName("Sigurds Extension")
 
-        val doIntercept = AtomicBoolean(true)
+        val settings = Settings(true, true)
 
-        http.registerHttpHandler(MyHTTPHandler(http, doIntercept))
+        http.registerHttpHandler(MyHTTPHandler(http, settings))
 
-        ui.registerSuiteTab("Sigurds Extension", SuiteTab(logging, doIntercept))
+        ui.registerSuiteTab("Sigurds Extension", SuiteTab(logging, settings))
         ui.registerContextMenuItemsProvider(ContextMenu(logging, http))
     }
+}
+
+data class Settings(var rewriteJson: Boolean, var rewriteXml: Boolean) {
 }
