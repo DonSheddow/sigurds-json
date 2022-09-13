@@ -10,8 +10,8 @@ import javax.swing.*
 class SuiteTab(logging: Logging, private val settings: Settings) : JPanel() {
     init {
         isVisible = true
-        val checkBox1 = JCheckBox("Rewrite nested JSON in Repeater", true)
-        val checkBox2 = JCheckBox("Rewrite nested XML in Repeater", true)
+        val checkBox1 = JCheckBox("Rewrite nested JSON in Repeater", settings.rewriteJson)
+        val checkBox2 = JCheckBox("Rewrite nested XML in Repeater", settings.rewriteXml)
 
         checkBox1.addItemListener { e ->
             val sel: Int = e.stateChange
