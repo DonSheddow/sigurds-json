@@ -7,7 +7,7 @@ import kotlinx.serialization.json.Json
 import java.awt.event.ItemEvent
 import javax.swing.*
 
-class SuiteTab(logging: Logging, private val settings: Settings) : JPanel() {
+class SuiteTab(private val logging: Logging, private val settings: Settings) : JPanel() {
     init {
         isVisible = true
         val checkBox1 = JCheckBox("Rewrite nested JSON in Repeater", settings.rewriteJson)
@@ -49,9 +49,9 @@ class ContextMenu(private val logging: Logging, private val http: Http) : Contex
             menuItem1.addActionListener {
                 val msgEditor = event.messageEditorRequestResponse().get()
                 val req = msgEditor.requestResponse.httpRequest()
-                val oldJson = Json.parseToJsonElement(req.bodyAsString())
+                val oldJson = Json.parseToJsonElement(String(req.body(), Charsets.UTF_8))
                 val newBody = rewriteNestedJsonWithMagicTags(oldJson)
-                val newReq = http.createRequest(req.httpService(), req.headers().map{it.toString()}, newBody)
+                val newReq = http.createRequest(req.httpService(), req.headers().map{it.toString()}, newBody.toByteArray(Charsets.UTF_8))
 
                 msgEditor.setRequest(newReq)
             }
@@ -60,9 +60,9 @@ class ContextMenu(private val logging: Logging, private val http: Http) : Contex
             menuItem2.addActionListener {
                 val msgEditor = event.messageEditorRequestResponse().get()
                 val req = msgEditor.requestResponse.httpRequest()
-                val oldJson = Json.parseToJsonElement(req.bodyAsString())
+                val oldJson = Json.parseToJsonElement(String(req.body(), Charsets.UTF_8))
                 val newBody = rewriteXmlInJsonWithMagicTags(oldJson)
-                val newReq = http.createRequest(req.httpService(), req.headers().map{it.toString()}, newBody)
+                val newReq = http.createRequest(req.httpService(), req.headers().map{it.toString()}, newBody.toByteArray(Charsets.UTF_8))
 
                 msgEditor.setRequest(newReq)
             }

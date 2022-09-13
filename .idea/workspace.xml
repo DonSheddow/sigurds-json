@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Change Extension name">
+    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Hardcode UTF-8 encoding">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Ui.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Ui.kt" afterDir="false" />
     </list>
@@ -322,7 +322,13 @@
       <option name="presentableId" value="LOCAL−00015" />
       <updated>1663065715108</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL−00016" summary="Fix settings">
+      <created>1663067984011</created>
+      <option name="number" value="LOCAL−00016" />
+      <option name="presentableId" value="LOCAL−00016" />
+      <updated>1663067984011</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -350,7 +356,9 @@
     <MESSAGE value="Reformat code" />
     <MESSAGE value="Support XML in JSON" />
     <MESSAGE value="Change Extension name" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change Extension name" />
+    <MESSAGE value="Fix settings" />
+    <MESSAGE value="Hardcode UTF-8 encoding" />
+    <option name="LAST_COMMIT_MESSAGE" value="Hardcode UTF-8 encoding" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
