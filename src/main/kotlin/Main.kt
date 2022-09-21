@@ -5,7 +5,7 @@ import burp.api.montoya.MontoyaApi
 
 @Suppress("unused")
 class Extension : BurpExtension {
-    override fun initialise(api: MontoyaApi) {
+    override fun initialize(api: MontoyaApi) {
         val logging = api.logging()
         val ui = api.userInterface()
         val http = api.http()
@@ -18,6 +18,9 @@ class Extension : BurpExtension {
 
         ui.registerSuiteTab("Sigurds JSON", SuiteTab(logging, settings))
         ui.registerContextMenuItemsProvider(ContextMenu(logging, http))
+        ui.registerHttpRequestEditorProvider { _, _ ->
+            HttpRequestTab(logging)
+        }
     }
 }
 

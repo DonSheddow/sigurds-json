@@ -3,7 +3,8 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.*
 
 private val prettyJson = Json { prettyPrint = true }
-private const val indent = "    "
+
+const val INDENT = "    "
 
 fun parseObjectOrArray(s: String): JsonElement? {
     val regex = Regex("""^\s*[\[{]""")
@@ -31,13 +32,13 @@ fun prettyPrintWithInnerParse(json: JsonElement, parse: (String) -> String?): St
         is JsonArray -> {
             "[\n" + json.joinToString(",\n") { x ->
                 prettyPrintWithInnerParse(x, parse)
-            }.lines().joinToString("\n") { indent + it } + "\n]"
+            }.lines().joinToString("\n") { INDENT + it } + "\n]"
         }
 
         is JsonObject -> {
             "{\n" + json.entries.joinToString(",\n") { (key, value) ->
                 "\"${key}\"" + ": " + prettyPrintWithInnerParse(value, parse)
-            }.lines().joinToString("\n") { indent + it } + "\n}"
+            }.lines().joinToString("\n") { INDENT + it } + "\n}"
         }
     }
 }

@@ -14,8 +14,9 @@ repositories {
 }
 
 dependencies {
-    implementation("net.portswigger.burp.extender:montoya-api:0.9.5")
+    implementation("net.portswigger.burp.extender:montoya-api:0.9.5.1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
+    implementation("com.github.h0tk3y.betterParse:better-parse:0.4.4")
     testImplementation(kotlin("test"))
 }
 
@@ -34,7 +35,7 @@ tasks.jar {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "11"
 }
 
 application {
