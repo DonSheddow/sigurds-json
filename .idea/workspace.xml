@@ -9,14 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Hardcode UTF-8 encoding">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Json.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/SimpleJsonGrammarTest.kt" afterDir="false" />
+    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Parse JSON by hand">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Json.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Json.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Ui.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Ui.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Util.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Util.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/SimpleJsonGrammarTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/SimpleJsonGrammarTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,8 +105,8 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.SimpleJsonGrammarTest.testParse">
-    <configuration name="SimpleJsonGrammarTest.testParse" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.extension4 [jar]">
+    <configuration name="SimpleJsonGrammarTest.testParse3" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -122,7 +119,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;SimpleJsonGrammarTest.testParse&quot;" />
+            <option value="&quot;SimpleJsonGrammarTest.testParse3&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -132,7 +129,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="UtilKtTest.flattenJson2" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="SimpleJsonGrammarTest.testParse4" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -145,7 +142,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;UtilKtTest.flattenJson2&quot;" />
+            <option value="&quot;SimpleJsonGrammarTest.testParse4&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -155,23 +152,25 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="extension4 [check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="SimpleJsonGrammarTest.testParse5" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="check" />
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;SimpleJsonGrammarTest.testParse5&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
@@ -220,11 +219,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.SimpleJsonGrammarTest.testParse" />
-        <item itemvalue="Gradle.extension4 [test]" />
         <item itemvalue="Gradle.extension4 [jar]" />
-        <item itemvalue="Gradle.extension4 [check]" />
-        <item itemvalue="Gradle.UtilKtTest.flattenJson2" />
+        <item itemvalue="Gradle.extension4 [test]" />
+        <item itemvalue="Gradle.SimpleJsonGrammarTest.testParse5" />
+        <item itemvalue="Gradle.SimpleJsonGrammarTest.testParse4" />
+        <item itemvalue="Gradle.SimpleJsonGrammarTest.testParse3" />
       </list>
     </recent_temporary>
   </component>
@@ -339,7 +338,13 @@
       <option name="presentableId" value="LOCAL−00017" />
       <updated>1663074045322</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL−00018" summary="Parse JSON by hand">
+      <created>1663761753979</created>
+      <option name="number" value="LOCAL−00018" />
+      <option name="presentableId" value="LOCAL−00018" />
+      <updated>1663761753979</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -369,7 +374,8 @@
     <MESSAGE value="Change Extension name" />
     <MESSAGE value="Fix settings" />
     <MESSAGE value="Hardcode UTF-8 encoding" />
-    <option name="LAST_COMMIT_MESSAGE" value="Hardcode UTF-8 encoding" />
+    <MESSAGE value="Parse JSON by hand" />
+    <option name="LAST_COMMIT_MESSAGE" value="Parse JSON by hand" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

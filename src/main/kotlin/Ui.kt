@@ -7,13 +7,13 @@ import burp.api.montoya.ui.contextmenu.ContextMenuEvent
 import burp.api.montoya.ui.contextmenu.ContextMenuItemsProvider
 import burp.api.montoya.ui.contextmenu.InvocationType
 import burp.api.montoya.ui.editor.extension.ExtensionHttpRequestEditor
+import com.github.h0tk3y.betterParse.grammar.tryParseToEnd
+import com.github.h0tk3y.betterParse.parser.*
 import kotlinx.serialization.json.Json
 import java.awt.BorderLayout
-import java.awt.Color
 import java.awt.Component
 import java.awt.event.ItemEvent
 import javax.swing.*
-import javax.swing.text.DefaultCaret
 import javax.swing.text.StyleConstants
 
 
@@ -86,7 +86,7 @@ class ContextMenu(private val logging: Logging, private val http: Http) : Contex
 
 
 class HttpRequestTab(private val logging: Logging) : ExtensionHttpRequestEditor {
-    private val jsonEditor = JsonEditor()
+    private val jsonEditor = JsonEditor(logging)
 
     override fun setHttpRequestResponse(requestResponse: HttpRequestResponse) {
         val body = requestResponse.httpRequest().bodyAsString()
@@ -119,22 +119,39 @@ class HttpRequestTab(private val logging: Logging) : ExtensionHttpRequestEditor 
     }
 }
 
-
-class JsonEditor : JPanel(BorderLayout()) {
+class JsonEditor(private val logging: Logging) : JPanel(BorderLayout()) {
     private val textPane = JTextPane()
     private val doc = textPane.styledDocument
+    private val style = textPane.addStyle("style", null)
+    private val scrollPane = JScrollPane(textPane)
 
     init {
-        val caret = textPane.caret as DefaultCaret
-        caret.updatePolicy = DefaultCaret.UPDATE_WHEN_ON_EDT
-        add(textPane)
+        add(scrollPane, BorderLayout.CENTER)
+        scrollPane.scrollRectToVisible(textPane.visibleRect)
     }
 
     fun updateBody(s: String) {
-        // TODO: style body according to JSON structure
-        val style = textPane.addStyle("style", null)
-        StyleConstants.setForeground(style, Color.lightGray)
-        doc.insertString(0, s, style)
+        val cs = when (val res = SimpleJsonGrammar.tryParseToEnd(s)) {
+            is Parsed -> res.value
+            is ErrorResult -> {
+                logging.logToError("Unable to parse JSON: " + res.javaClass.canonicalName)
+                return
+            }
+        }
 
+        if (cs.toPlainString() == textPane.text.replace("\r\n", "\n")) {
+            return
+        }
+
+        for ((str, color) in cs.strings) {
+            if (color != null) {
+                StyleConstants.setForeground(style, color)
+                doc.insertString(doc.length, str, style)
+            }
+            else {
+                doc.insertString(doc.length, str, null)
+            }
+        }
+        textPane.caretPosition = 0
     }
 }
