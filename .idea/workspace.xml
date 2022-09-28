@@ -9,11 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Parse JSON by hand">
+    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Add HTTP request tab with colorized JSON">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Json.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Json.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Ui.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Ui.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/SimpleJsonGrammarTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/SimpleJsonGrammarTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -344,7 +343,13 @@
       <option name="presentableId" value="LOCAL−00018" />
       <updated>1663761753979</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL−00019" summary="Add HTTP request tab with colorized JSON">
+      <created>1664286144842</created>
+      <option name="number" value="LOCAL−00019" />
+      <option name="presentableId" value="LOCAL−00019" />
+      <updated>1664286144842</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -375,7 +380,8 @@
     <MESSAGE value="Fix settings" />
     <MESSAGE value="Hardcode UTF-8 encoding" />
     <MESSAGE value="Parse JSON by hand" />
-    <option name="LAST_COMMIT_MESSAGE" value="Parse JSON by hand" />
+    <MESSAGE value="Add HTTP request tab with colorized JSON" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add HTTP request tab with colorized JSON" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

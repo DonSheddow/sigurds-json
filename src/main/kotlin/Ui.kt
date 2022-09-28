@@ -1,12 +1,16 @@
+import burp.api.montoya.http.ContentType
 import burp.api.montoya.http.Http
+import burp.api.montoya.http.MimeType
 import burp.api.montoya.http.message.HttpRequestResponse
 import burp.api.montoya.http.message.requests.HttpRequest
+import burp.api.montoya.http.message.responses.HttpResponse
 import burp.api.montoya.logging.Logging
 import burp.api.montoya.ui.Selection
 import burp.api.montoya.ui.contextmenu.ContextMenuEvent
 import burp.api.montoya.ui.contextmenu.ContextMenuItemsProvider
 import burp.api.montoya.ui.contextmenu.InvocationType
 import burp.api.montoya.ui.editor.extension.ExtensionHttpRequestEditor
+import burp.api.montoya.ui.editor.extension.ExtensionHttpResponseEditor
 import com.github.h0tk3y.betterParse.grammar.tryParseToEnd
 import com.github.h0tk3y.betterParse.parser.*
 import kotlinx.serialization.json.Json
@@ -85,6 +89,46 @@ class ContextMenu(private val logging: Logging, private val http: Http) : Contex
 }
 
 
+class HttpResponseTab(private val logging: Logging) : ExtensionHttpResponseEditor {
+    private val jsonEditor = JsonEditor(logging)
+
+    init {
+        jsonEditor.textPane.isEditable = false
+    }
+
+    override fun setHttpRequestResponse(requestResponse: HttpRequestResponse) {
+        val body = requestResponse.httpResponse().bodyAsString()
+        jsonEditor.updateBody(body)
+    }
+
+    override fun isEnabledFor(requestResponse: HttpRequestResponse): Boolean {
+        val resp = requestResponse.httpResponse()
+        return resp.inferredMimeType() == MimeType.JSON || resp.statedMimeType() == MimeType.JSON
+    }
+
+    override fun caption(): String {
+        return "Sigurds JSON"
+    }
+
+    override fun uiComponent(): Component {
+        return jsonEditor
+    }
+
+    override fun selectedData(): Selection {
+        TODO("Not yet implemented")
+    }
+
+    override fun isModified(): Boolean {
+        return false
+    }
+
+    override fun getHttpResponse(): HttpResponse {
+        TODO("Not yet implemented")
+    }
+
+}
+
+
 class HttpRequestTab(private val logging: Logging) : ExtensionHttpRequestEditor {
     private val jsonEditor = JsonEditor(logging)
 
@@ -94,8 +138,8 @@ class HttpRequestTab(private val logging: Logging) : ExtensionHttpRequestEditor 
     }
 
     override fun isEnabledFor(requestResponse: HttpRequestResponse): Boolean {
-        val body = requestResponse.httpRequest().bodyAsString()
-        return body.isNotEmpty()
+        val req = requestResponse.httpRequest()
+        return req.body().isNotEmpty() && req.contentType() == ContentType.JSON
     }
 
     override fun caption(): String {
@@ -120,7 +164,7 @@ class HttpRequestTab(private val logging: Logging) : ExtensionHttpRequestEditor 
 }
 
 class JsonEditor(private val logging: Logging) : JPanel(BorderLayout()) {
-    private val textPane = JTextPane()
+    val textPane = JTextPane()
     private val doc = textPane.styledDocument
     private val style = textPane.addStyle("style", null)
     private val scrollPane = JScrollPane(textPane)

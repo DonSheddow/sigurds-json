@@ -1,8 +1,6 @@
 import burp.api.montoya.BurpExtension
 import burp.api.montoya.MontoyaApi
 
-// TODO: Add tab in proxy for rewritten responses
-
 @Suppress("unused")
 class Extension : BurpExtension {
     override fun initialize(api: MontoyaApi) {
@@ -20,6 +18,9 @@ class Extension : BurpExtension {
         ui.registerContextMenuItemsProvider(ContextMenu(logging, http))
         ui.registerHttpRequestEditorProvider { _, _ ->
             HttpRequestTab(logging)
+        }
+        ui.registerHttpResponseEditorProvider { _, _ ->
+            HttpResponseTab(logging)
         }
     }
 }
