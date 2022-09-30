@@ -7,14 +7,14 @@ internal class SimpleJsonGrammarTest {
     fun testParse() {
         val input = "[null]"
 
-        assertEquals("[\n    null\n]", SimpleJsonGrammar.parseToEnd(input).toPlainString())
+        assertEquals("[\n    null\n]", coloredJsonParser().parseToEnd(input).toPlainString())
     }
 
     @Test
     fun testParse2() {
         val input = "null"
 
-        assertEquals("null", SimpleJsonGrammar.parseToEnd(input).toPlainString())
+        assertEquals("null", coloredJsonParser().parseToEnd(input).toPlainString())
     }
 
     @Test
@@ -28,7 +28,7 @@ internal class SimpleJsonGrammarTest {
             |}
         """.trimMargin()
 
-        assertEquals(expected, SimpleJsonGrammar.parseToEnd(input).toPlainString())
+        assertEquals(expected, coloredJsonParser().parseToEnd(input).toPlainString())
     }
 
     @Test
@@ -38,18 +38,18 @@ internal class SimpleJsonGrammarTest {
             |    "DokumentGuid": "e88
         """.trimMargin()
 
-        assertEquals(expected, SimpleJsonGrammar.parseToEnd(input).toPlainString().substring(0, 26))
+        assertEquals(expected, coloredJsonParser().parseToEnd(input).toPlainString().substring(0, 26))
     }
 
     @Test
     fun testParse5() {
         val input = "\"asdf\""
-        assertEquals(input, SimpleJsonGrammar.parseToEnd(input).toPlainString())
+        assertEquals(input, coloredJsonParser().parseToEnd(input).toPlainString())
     }
 
     @Test
     fun testParse6() {
         val input = "\"test \\\" test \""
-        assertEquals(input, SimpleJsonGrammar.parseToEnd(input).toPlainString())
+        assertEquals(input, coloredJsonParser().parseToEnd(input).toPlainString())
     }
 }

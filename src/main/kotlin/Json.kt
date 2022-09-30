@@ -5,6 +5,7 @@ import com.github.h0tk3y.betterParse.lexer.literalToken
 import com.github.h0tk3y.betterParse.lexer.regexToken
 import com.github.h0tk3y.betterParse.lexer.token
 import com.github.h0tk3y.betterParse.parser.Parser
+import com.github.h0tk3y.betterParse.utils.Tuple2
 import java.awt.Color
 
 class ColoredStrings(val strings: List<Pair<String, Color?>>) {
@@ -34,7 +35,7 @@ fun cs(str: String, color: Color?): ColoredStrings = ColoredStrings(listOf(Pair(
 fun cs(str: String): ColoredStrings = cs(str, null)
 
 
-object SimpleJsonGrammar : Grammar<ColoredStrings>() {
+class JsonGrammar<T>(private val valFunc: (String) -> T, private val arrayFunc: (List<T>) -> T, private val objectFunc: (List<Tuple2<String, T>>) -> T) : Grammar<T>() {
     private val stringLiteral by token { input, from ->
         if (input[from] != '"') {
             return@token 0
@@ -75,19 +76,37 @@ object SimpleJsonGrammar : Grammar<ColoredStrings>() {
     private val string: Parser<String> = stringLiteral use {text}
     private val number: Parser<String> = numberToken use {text}
 
-    private val jsonPrimitiveValue: Parser<ColoredStrings> = jsonNull or jsonBool or string or number map { cs(it, Color.GREEN) }
-    private val jsonObject: Parser<ColoredStrings> = (-openingBrace and
+    private val jsonPrimitiveValue: Parser<T> = jsonNull or jsonBool or string or number map { valFunc(it) }
+    private val jsonObject: Parser<Any?> = (-openingBrace and
             separated(string and -colon and parser(this::jsonValue), comma, true) and
             -closingBrace)
         .map {
-            cs("{\n$INDENT") + joinCS(it.terms, cs(",\n")) { (k, v) -> cs(k, Color.YELLOW) + cs(": ") + v }.indent() + cs("\n}")
+            objectFunc(it.terms as List<Tuple2<String, T>>)
         }
-    private val jsonArray: Parser<ColoredStrings> = (-openingBracket and
+    private val jsonArray: Parser<Any?> = (-openingBracket and
             separated(parser(this::jsonValue), comma, true) and
             -closingBracket)
         .map {
-            cs("[\n$INDENT") + joinCS(it.terms, cs(",\n")).indent() + cs("\n]")
+            arrayFunc(it.terms as List<T>)
         }
-    private val jsonValue: Parser<ColoredStrings> = jsonPrimitiveValue or jsonObject or jsonArray
-    override val rootParser = jsonValue
+
+    private val jsonValue: Parser<Any?> = jsonPrimitiveValue or jsonObject or jsonArray
+    override val rootParser = jsonValue as Parser<T>
+}
+
+
+fun coloredJsonParser(keyColor: Color, valueColor: Color): JsonGrammar<ColoredStrings> {
+    return JsonGrammar<ColoredStrings>(
+        {cs(it, valueColor)},
+        {
+            cs("[\n$INDENT") + joinCS(it, cs(",\n")).indent() + cs("\n]")
+        },
+        {
+        cs("{\n$INDENT") + joinCS(it, cs(",\n")) { (k, v) -> cs(k, keyColor) + cs(": ") + v }.indent() + cs("\n}")
+        }
+    )
+}
+
+fun coloredJsonParser(): JsonGrammar<ColoredStrings> {
+    return coloredJsonParser(Color.YELLOW, Color.GREEN)
 }

@@ -9,10 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Add HTTP request tab with colorized JSON">
+    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Add HTTP response tab">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Json.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Json.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Ui.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Ui.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/SimpleJsonGrammarTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/SimpleJsonGrammarTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -349,7 +350,19 @@
       <option name="presentableId" value="LOCAL−00019" />
       <updated>1664286144842</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL−00020" summary="Add HTTP response tab">
+      <created>1664359099236</created>
+      <option name="number" value="LOCAL−00020" />
+      <option name="presentableId" value="LOCAL−00020" />
+      <updated>1664359099236</updated>
+    </task>
+    <task id="LOCAL−00021" summary="Add HTTP response tab">
+      <created>1664359365180</created>
+      <option name="number" value="LOCAL−00021" />
+      <option name="presentableId" value="LOCAL−00021" />
+      <updated>1664359365180</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -381,7 +394,8 @@
     <MESSAGE value="Hardcode UTF-8 encoding" />
     <MESSAGE value="Parse JSON by hand" />
     <MESSAGE value="Add HTTP request tab with colorized JSON" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add HTTP request tab with colorized JSON" />
+    <MESSAGE value="Add HTTP response tab" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add HTTP response tab" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

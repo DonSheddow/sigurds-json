@@ -15,6 +15,7 @@ import com.github.h0tk3y.betterParse.grammar.tryParseToEnd
 import com.github.h0tk3y.betterParse.parser.*
 import kotlinx.serialization.json.Json
 import java.awt.BorderLayout
+import java.awt.Color
 import java.awt.Component
 import java.awt.event.ItemEvent
 import javax.swing.*
@@ -174,8 +175,18 @@ class JsonEditor(private val logging: Logging) : JPanel(BorderLayout()) {
         scrollPane.scrollRectToVisible(textPane.visibleRect)
     }
 
+    private fun getColors(): Pair<Color, Color> {
+        return if (background.red < 127) { // dark mode
+            Pair(Color(173, 136, 0), Color(50, 186, 166))
+        }
+        else { // light mode
+            Pair(Color(94, 74, 0), Color(29, 107, 95))
+        }
+    }
+
     fun updateBody(s: String) {
-        val cs = when (val res = SimpleJsonGrammar.tryParseToEnd(s)) {
+        val (k, v) = getColors()
+        val cs = when (val res = coloredJsonParser(k, v).tryParseToEnd(s)) {
             is Parsed -> res.value
             is ErrorResult -> {
                 logging.logToError("Unable to parse JSON: " + res.javaClass.canonicalName)
@@ -186,6 +197,8 @@ class JsonEditor(private val logging: Logging) : JPanel(BorderLayout()) {
         if (cs.toPlainString() == textPane.text.replace("\r\n", "\n")) {
             return
         }
+
+        textPane.text = ""
 
         for ((str, color) in cs.strings) {
             if (color != null) {
