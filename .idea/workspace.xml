@@ -9,11 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Improve colors in HTTP message tabs">
+    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Remove parameter">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Http.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Http.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Ui.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Ui.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -106,7 +103,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.extension4 [test]">
+  <component name="RunManager" selected="Gradle.extension4 [jar]">
     <configuration name="SimpleJsonGrammarTest.testParse3" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -220,8 +217,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.extension4 [test]" />
         <item itemvalue="Gradle.extension4 [jar]" />
+        <item itemvalue="Gradle.extension4 [test]" />
         <item itemvalue="Gradle.SimpleJsonGrammarTest.testParse5" />
         <item itemvalue="Gradle.SimpleJsonGrammarTest.testParse4" />
         <item itemvalue="Gradle.SimpleJsonGrammarTest.testParse3" />
@@ -369,7 +366,19 @@
       <option name="presentableId" value="LOCAL−00022" />
       <updated>1664541359341</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL−00023" summary="Implement getHttpRequest/getHttpResponse in HttpTab">
+      <created>1664968907940</created>
+      <option name="number" value="LOCAL−00023" />
+      <option name="presentableId" value="LOCAL−00023" />
+      <updated>1664968907940</updated>
+    </task>
+    <task id="LOCAL−00024" summary="Remove parameter">
+      <created>1664969010142</created>
+      <option name="number" value="LOCAL−00024" />
+      <option name="presentableId" value="LOCAL−00024" />
+      <updated>1664969010142</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -403,7 +412,9 @@
     <MESSAGE value="Add HTTP request tab with colorized JSON" />
     <MESSAGE value="Add HTTP response tab" />
     <MESSAGE value="Improve colors in HTTP message tabs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improve colors in HTTP message tabs" />
+    <MESSAGE value="Implement getHttpRequest/getHttpResponse in HttpTab" />
+    <MESSAGE value="Remove parameter" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove parameter" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -18,6 +18,7 @@ import java.awt.Color
 import java.awt.Component
 import java.awt.event.ItemEvent
 import javax.swing.*
+import javax.swing.border.EmptyBorder
 import javax.swing.event.DocumentEvent
 import javax.swing.event.DocumentListener
 import javax.swing.text.StyleConstants
@@ -172,8 +173,15 @@ class JsonEditor(private val logging: Logging) : JPanel(BorderLayout()) {
     private val scrollPane = JScrollPane(textPane)
 
     init {
+        val button = JButton("Parse nested JSON")
+        button.addActionListener {
+            val oldJson = Json.parseToJsonElement(textPane.text)
+            val newText = rewriteNestedJsonWithMagicTags(oldJson)
+            updateBody(newText)
+        }
+        button.border = EmptyBorder(5, 5, 5, 5)
+        add(button, BorderLayout.PAGE_START)
         add(scrollPane, BorderLayout.CENTER)
-        scrollPane.scrollRectToVisible(textPane.visibleRect)
     }
 
     private fun getColors(): Pair<Color, Color> {
