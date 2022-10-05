@@ -1,4 +1,4 @@
-import burp.api.montoya.core.MessageAnnotations
+import burp.api.montoya.core.Annotations
 import burp.api.montoya.core.ToolSource
 import burp.api.montoya.core.ToolType
 import burp.api.montoya.http.*
@@ -8,9 +8,9 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.*
 
 class MyHTTPHandler(private val http: Http, private val settings: Settings) : HttpHandler {
-    override fun handleHttpRequest(req: HttpRequest, annotations: MessageAnnotations, src: ToolSource): RequestHandlerResult {
+    override fun handleHttpRequest(req: HttpRequest, annotations: Annotations, src: ToolSource): RequestResult {
         if (!src.isFromTool(ToolType.REPEATER)) {
-            return RequestHandlerResult.from(req, annotations)
+            return RequestResult.requestResult(req, annotations)
         }
         val bodyStr = String(req.body(), Charsets.UTF_8)
         val regex = Regex("""<<<START_JSON_ENCODING>>>(.*?)<<<STOP_JSON_ENCODING>>>""", setOf(RegexOption.MULTILINE, RegexOption.DOT_MATCHES_ALL))
@@ -20,19 +20,19 @@ class MyHTTPHandler(private val http: Http, private val settings: Settings) : Ht
             Json.encodeToString(tryMinifyJson(s) ?: s)
         }
 
-        val newReq = http.createRequest(req.httpService(), req.headers().map{it.toString()}, newBody.toByteArray(Charsets.UTF_8))
-        return RequestHandlerResult.from(newReq, annotations)
+        val newReq = HttpRequest.httpRequest(req.httpService(), req.headers().map{it.toString()}, newBody.toByteArray(Charsets.UTF_8))
+        return RequestResult.requestResult(newReq, annotations)
     }
 
     override fun handleHttpResponse(
         req: HttpRequest,
         resp: HttpResponse,
-        annotations: MessageAnnotations,
+        annotations: Annotations,
         src: ToolSource
-    ): ResponseHandlerResult {
+    ): ResponseResult {
         val mimeType = resp.statedMimeType()
         if (!src.isFromTool(ToolType.REPEATER) || mimeType != MimeType.JSON || !settings.rewriteJson) {
-            return ResponseHandlerResult.from(resp, annotations)
+            return ResponseResult.responseResult(resp, annotations)
         }
 
         var body = resp.bodyAsString()
@@ -44,8 +44,8 @@ class MyHTTPHandler(private val http: Http, private val settings: Settings) : Ht
             body = rewriteXmlInJson(Json.parseToJsonElement(body))
         }
 
-        val newResp = http.createResponse(resp.headers().map{it.toString()}, body)
+        val newResp = HttpResponse.httpResponse(resp.headers().map{it.toString()}, body)
 
-        return ResponseHandlerResult.from(newResp, annotations)
+        return ResponseResult.responseResult(newResp, annotations)
     }
 }

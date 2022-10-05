@@ -9,11 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Add HTTP response tab">
+    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Improve colors in HTTP message tabs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Json.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Json.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Http.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Http.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Ui.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Ui.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/SimpleJsonGrammarTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/SimpleJsonGrammarTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +106,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.extension4 [jar]">
+  <component name="RunManager" selected="Gradle.extension4 [test]">
     <configuration name="SimpleJsonGrammarTest.testParse3" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -219,8 +220,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.extension4 [jar]" />
         <item itemvalue="Gradle.extension4 [test]" />
+        <item itemvalue="Gradle.extension4 [jar]" />
         <item itemvalue="Gradle.SimpleJsonGrammarTest.testParse5" />
         <item itemvalue="Gradle.SimpleJsonGrammarTest.testParse4" />
         <item itemvalue="Gradle.SimpleJsonGrammarTest.testParse3" />
@@ -362,7 +363,13 @@
       <option name="presentableId" value="LOCAL−00021" />
       <updated>1664359365180</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL−00022" summary="Improve colors in HTTP message tabs">
+      <created>1664541359341</created>
+      <option name="number" value="LOCAL−00022" />
+      <option name="presentableId" value="LOCAL−00022" />
+      <updated>1664541359341</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -395,7 +402,8 @@
     <MESSAGE value="Parse JSON by hand" />
     <MESSAGE value="Add HTTP request tab with colorized JSON" />
     <MESSAGE value="Add HTTP response tab" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add HTTP response tab" />
+    <MESSAGE value="Improve colors in HTTP message tabs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improve colors in HTTP message tabs" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -19,6 +19,8 @@ import java.awt.Color
 import java.awt.Component
 import java.awt.event.ItemEvent
 import javax.swing.*
+import javax.swing.event.DocumentEvent
+import javax.swing.event.DocumentListener
 import javax.swing.text.StyleConstants
 
 
@@ -66,7 +68,7 @@ class ContextMenu(private val logging: Logging, private val http: Http) : Contex
                 val req = msgEditor.requestResponse.httpRequest()
                 val oldJson = Json.parseToJsonElement(String(req.body(), Charsets.UTF_8))
                 val newBody = rewriteNestedJsonWithMagicTags(oldJson)
-                val newReq = http.createRequest(req.httpService(), req.headers().map{it.toString()}, newBody.toByteArray(Charsets.UTF_8))
+                val newReq = HttpRequest.httpRequest(req.httpService(), req.headers().map{it.toString()}, newBody.toByteArray(Charsets.UTF_8))
 
                 msgEditor.setRequest(newReq)
             }
@@ -77,7 +79,7 @@ class ContextMenu(private val logging: Logging, private val http: Http) : Contex
                 val req = msgEditor.requestResponse.httpRequest()
                 val oldJson = Json.parseToJsonElement(String(req.body(), Charsets.UTF_8))
                 val newBody = rewriteXmlInJsonWithMagicTags(oldJson)
-                val newReq = http.createRequest(req.httpService(), req.headers().map{it.toString()}, newBody.toByteArray(Charsets.UTF_8))
+                val newReq = HttpRequest.httpRequest(req.httpService(), req.headers().map{it.toString()}, newBody.toByteArray(Charsets.UTF_8))
 
                 msgEditor.setRequest(newReq)
             }
@@ -90,13 +92,47 @@ class ContextMenu(private val logging: Logging, private val http: Http) : Contex
 }
 
 
-class HttpResponseTab(private val logging: Logging) : ExtensionHttpResponseEditor {
-    private val jsonEditor = JsonEditor(logging)
+abstract class HttpTab(private val logging: Logging, editable: Boolean)  {
+    val jsonEditor = JsonEditor(logging)
+    private var changed = false
 
     init {
-        jsonEditor.textPane.isEditable = false
+        jsonEditor.textPane.isEditable = editable
+        jsonEditor.textPane.document.addDocumentListener(object: DocumentListener {
+            override fun insertUpdate(e: DocumentEvent?) {
+                changed = true
+            }
+
+            override fun removeUpdate(e: DocumentEvent?) {
+                changed = true
+            }
+
+            override fun changedUpdate(e: DocumentEvent?) {
+                changed = true
+            }
+
+        })
     }
 
+    fun caption(): String {
+        return "Sigurds JSON"
+    }
+
+    fun uiComponent(): Component {
+        return jsonEditor
+    }
+
+    fun selectedData(): Selection {
+        TODO("Not yet implemented")
+    }
+
+    fun isModified(): Boolean {
+        return changed
+    }
+
+}
+
+class HttpResponseTab(logging: Logging, private val requestResponse: HttpRequestResponse) : HttpTab(logging, false), ExtensionHttpResponseEditor {
     override fun setHttpRequestResponse(requestResponse: HttpRequestResponse) {
         val body = requestResponse.httpResponse().bodyAsString()
         jsonEditor.updateBody(body)
@@ -107,32 +143,13 @@ class HttpResponseTab(private val logging: Logging) : ExtensionHttpResponseEdito
         return resp.inferredMimeType() == MimeType.JSON || resp.statedMimeType() == MimeType.JSON
     }
 
-    override fun caption(): String {
-        return "Sigurds JSON"
-    }
-
-    override fun uiComponent(): Component {
-        return jsonEditor
-    }
-
-    override fun selectedData(): Selection {
-        TODO("Not yet implemented")
-    }
-
-    override fun isModified(): Boolean {
-        return false
-    }
-
     override fun getHttpResponse(): HttpResponse {
-        TODO("Not yet implemented")
+        return HttpResponse.httpResponse(requestResponse.httpResponse().headers().map{it.toString()}, jsonEditor.textPane.text)
     }
-
 }
 
 
-class HttpRequestTab(private val logging: Logging) : ExtensionHttpRequestEditor {
-    private val jsonEditor = JsonEditor(logging)
-
+class HttpRequestTab(private val logging: Logging, private val requestResponse: HttpRequestResponse, editable: Boolean) : HttpTab(logging, editable), ExtensionHttpRequestEditor {
     override fun setHttpRequestResponse(requestResponse: HttpRequestResponse) {
         val body = requestResponse.httpRequest().bodyAsString()
         jsonEditor.updateBody(body)
@@ -143,24 +160,9 @@ class HttpRequestTab(private val logging: Logging) : ExtensionHttpRequestEditor 
         return req.body().isNotEmpty() && req.contentType() == ContentType.JSON
     }
 
-    override fun caption(): String {
-        return "Sigurds JSON"
-    }
-
-    override fun uiComponent(): Component {
-        return jsonEditor
-    }
-
-    override fun selectedData(): Selection {
-        TODO("Not yet implemented")
-    }
-
-    override fun isModified(): Boolean {
-        return false
-    }
-
     override fun getHttpRequest(): HttpRequest {
-        TODO("Not yet implemented")
+        val req = requestResponse.httpRequest()
+        return HttpRequest.httpRequest(req.httpService(), req.headers().map{it.toString()}, jsonEditor.textPane.text)
     }
 }
 

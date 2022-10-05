@@ -1,5 +1,6 @@
 import burp.api.montoya.BurpExtension
 import burp.api.montoya.MontoyaApi
+import burp.api.montoya.ui.editor.extension.EditorMode
 
 @Suppress("unused")
 class Extension : BurpExtension {
@@ -16,11 +17,14 @@ class Extension : BurpExtension {
 
         ui.registerSuiteTab("Sigurds JSON", SuiteTab(logging, settings))
         ui.registerContextMenuItemsProvider(ContextMenu(logging, http))
-        ui.registerHttpRequestEditorProvider { _, _ ->
-            HttpRequestTab(logging)
+        ui.registerHttpRequestEditorProvider { reqResp, mode ->
+            when (mode) {
+                EditorMode.DEFAULT -> HttpRequestTab(logging, reqResp, true)
+                EditorMode.READ_ONLY -> HttpRequestTab(logging, reqResp, false)
+            }
         }
-        ui.registerHttpResponseEditorProvider { _, _ ->
-            HttpResponseTab(logging)
+        ui.registerHttpResponseEditorProvider { reqResp, _ ->
+            HttpResponseTab(logging, reqResp)
         }
     }
 }
