@@ -8,13 +8,21 @@ import com.github.h0tk3y.betterParse.parser.Parser
 import com.github.h0tk3y.betterParse.utils.Tuple2
 import java.awt.Color
 
+fun indentExceptMagicString(s: String): String {
+    val regex = Regex("<<<START_JSON_ENCODING>>>.*?<<<STOP_JSON_ENCODING>>>", RegexOption.DOT_MATCHES_ALL)
+    val indented = s.replace("\n", "\n" + INDENT)
+    return regex.replace(indented) {
+        it.groupValues[0].replace("\n" + INDENT, "\n")
+    }
+}
+
 class ColoredStrings(val strings: List<Pair<String, Color?>>) {
     operator fun plus(other: ColoredStrings): ColoredStrings {
         return ColoredStrings(this.strings + other.strings)
     }
 
     fun indent(): ColoredStrings {
-        return ColoredStrings(strings.map {(a, b) -> Pair(a.replace("\n", "\n" + INDENT), b) } )
+        return ColoredStrings(strings.map {(a, b) -> Pair(indentExceptMagicString(a), b) } )
     }
 
     fun toPlainString(): String {
@@ -70,13 +78,15 @@ class JsonGrammar<T>(private val valFunc: (String) -> T, private val arrayFunc: 
     private val boolToken by regexToken("(true|false)")
     private val nullToken by literalToken("null")
     private val numberToken by regexToken("""-?(\d+)(\.\d+)?([eE][+-]?\d+)?""")
+    private val magicTag by regexToken("""<<<START_JSON_ENCODING>>>.*?<<<STOP_JSON_ENCODING>>>""".toRegex(RegexOption.DOT_MATCHES_ALL))
 
     private val jsonNull: Parser<String> = nullToken asJust "null"
     private val jsonBool: Parser<String> = boolToken use {text}
     private val string: Parser<String> = stringLiteral use {text}
     private val number: Parser<String> = numberToken use {text}
+    private val magicString: Parser<String> = magicTag use {text}
 
-    private val jsonPrimitiveValue: Parser<T> = jsonNull or jsonBool or string or number map { valFunc(it) }
+    private val jsonPrimitiveValue: Parser<T> = jsonNull or jsonBool or string or number or magicString map { valFunc(it) }
     private val jsonObject: Parser<Any?> = (-openingBrace and
             separated(string and -colon and parser(this::jsonValue), comma, true) and
             -closingBrace)
@@ -102,7 +112,7 @@ fun coloredJsonParser(keyColor: Color, valueColor: Color): JsonGrammar<ColoredSt
             cs("[\n$INDENT") + joinCS(it, cs(",\n")).indent() + cs("\n]")
         },
         {
-        cs("{\n$INDENT") + joinCS(it, cs(",\n")) { (k, v) -> cs(k, keyColor) + cs(": ") + v }.indent() + cs("\n}")
+            cs("{\n$INDENT") + joinCS(it, cs(",\n")) { (k, v) -> cs(k, keyColor) + cs(": ") + v }.indent() + cs("\n}")
         }
     )
 }

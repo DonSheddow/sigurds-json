@@ -52,4 +52,23 @@ internal class SimpleJsonGrammarTest {
         val input = "\"test \\\" test \""
         assertEquals(input, coloredJsonParser().parseToEnd(input).toPlainString())
     }
+
+    @Test
+    fun testParse7() {
+        val input = """{
+            |    "a": <<<START_JSON_ENCODING>>>
+            |         hello
+            |         world
+            |<<<STOP_JSON_ENCODING>>>
+            |}""".trimMargin()
+        assertEquals(input, coloredJsonParser().parseToEnd(input).toPlainString())
+    }
+
+    @Test
+    fun testParse8() {
+        val input = """<<<START_JSON_ENCODING>>>
+            |    hello, world!
+            |<<<STOP_JSON_ENCODING>>>""".trimMargin()
+        assertEquals(input, indentExceptMagicString(input))
+    }
 }
