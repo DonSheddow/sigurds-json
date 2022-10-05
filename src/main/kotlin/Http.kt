@@ -7,7 +7,7 @@ import burp.api.montoya.http.message.responses.HttpResponse
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.*
 
-class MyHTTPHandler(private val http: Http, private val settings: Settings) : HttpHandler {
+class MyHTTPHandler(private val settings: Settings) : HttpHandler {
     override fun handleHttpRequest(req: HttpRequest, annotations: Annotations, src: ToolSource): RequestResult {
         if (!src.isFromTool(ToolType.REPEATER)) {
             return RequestResult.requestResult(req, annotations)

@@ -1,5 +1,4 @@
 import burp.api.montoya.http.ContentType
-import burp.api.montoya.http.Http
 import burp.api.montoya.http.MimeType
 import burp.api.montoya.http.message.HttpRequestResponse
 import burp.api.montoya.http.message.requests.HttpRequest
@@ -59,7 +58,7 @@ class SuiteTab(private val logging: Logging, private val settings: Settings) : J
     }
 }
 
-class ContextMenu(private val logging: Logging, private val http: Http) : ContextMenuItemsProvider {
+class ContextMenu(private val logging: Logging) : ContextMenuItemsProvider {
     override fun provideMenuItems(event: ContextMenuEvent): List<JMenuItem> {
         return if (event.isFrom(InvocationType.MESSAGE_EDITOR_REQUEST)) {
             val menuItem1 = JMenuItem("Parse nested JSON")

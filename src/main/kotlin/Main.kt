@@ -13,10 +13,10 @@ class Extension : BurpExtension {
 
         val settings = Settings(true, true)
 
-        http.registerHttpHandler(MyHTTPHandler(http, settings))
+        http.registerHttpHandler(MyHTTPHandler(settings))
 
         ui.registerSuiteTab("Sigurds JSON", SuiteTab(logging, settings))
-        ui.registerContextMenuItemsProvider(ContextMenu(logging, http))
+        ui.registerContextMenuItemsProvider(ContextMenu(logging))
         ui.registerHttpRequestEditorProvider { reqResp, mode ->
             when (mode) {
                 EditorMode.DEFAULT -> HttpRequestTab(logging, reqResp, true)
