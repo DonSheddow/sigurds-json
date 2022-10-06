@@ -4,7 +4,6 @@ import burp.api.montoya.core.ToolType
 import burp.api.montoya.http.*
 import burp.api.montoya.http.message.requests.HttpRequest
 import burp.api.montoya.http.message.responses.HttpResponse
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.*
 
 class MyHTTPHandler(private val settings: Settings) : HttpHandler {
@@ -13,12 +12,7 @@ class MyHTTPHandler(private val settings: Settings) : HttpHandler {
             return RequestResult.requestResult(req, annotations)
         }
         val bodyStr = String(req.body(), Charsets.UTF_8)
-        val regex = Regex("""<<<START_JSON_ENCODING>>>(.*?)<<<STOP_JSON_ENCODING>>>""", setOf(RegexOption.MULTILINE, RegexOption.DOT_MATCHES_ALL))
-
-        val newBody = regex.replace(bodyStr) {
-            val s = it.groups[1]!!.value
-            Json.encodeToString(tryMinifyJson(s) ?: s)
-        }
+        val newBody = processMagicTags(bodyStr, true)
 
         val newReq = HttpRequest.httpRequest(req.httpService(), req.headers().map{it.toString()}, newBody.toByteArray(Charsets.UTF_8))
         return RequestResult.requestResult(newReq, annotations)

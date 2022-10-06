@@ -9,11 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Add button to parse nested JSON (WIP)">
+    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Add button to parse nested JSON">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Json.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Json.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Http.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Http.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Ui.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Ui.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/SimpleJsonGrammarTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/SimpleJsonGrammarTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Util.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Util.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +105,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.extension4 [jar]">
+  <component name="RunManager" selected="Gradle.extension4 [test]">
     <configuration name="SimpleJsonGrammarTest.testParse5" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -219,8 +219,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.extension4 [jar]" />
         <item itemvalue="Gradle.extension4 [test]" />
+        <item itemvalue="Gradle.extension4 [jar]" />
         <item itemvalue="Gradle.SimpleJsonGrammarTest.testParse7" />
         <item itemvalue="Gradle.SimpleJsonGrammarTest.testParse8" />
         <item itemvalue="Gradle.SimpleJsonGrammarTest.testParse5" />
@@ -386,7 +386,13 @@
       <option name="presentableId" value="LOCAL−00025" />
       <updated>1664970112386</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL−00026" summary="Add button to parse nested JSON">
+      <created>1664978423565</created>
+      <option name="number" value="LOCAL−00026" />
+      <option name="presentableId" value="LOCAL−00026" />
+      <updated>1664978423565</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -423,7 +429,8 @@
     <MESSAGE value="Implement getHttpRequest/getHttpResponse in HttpTab" />
     <MESSAGE value="Remove parameter" />
     <MESSAGE value="Add button to parse nested JSON (WIP)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add button to parse nested JSON (WIP)" />
+    <MESSAGE value="Add button to parse nested JSON" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add button to parse nested JSON" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

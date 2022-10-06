@@ -6,6 +6,21 @@ private val prettyJson = Json { prettyPrint = true }
 
 const val INDENT = "    "
 
+fun processMagicTags(str: String, minifyJson: Boolean): String {
+    val regex = Regex("""<<<START_JSON_ENCODING>>>(.*?)<<<STOP_JSON_ENCODING>>>""", RegexOption.DOT_MATCHES_ALL)
+    val res = regex.replace(str) {
+        val s = it.groups[1]!!.value
+        if (minifyJson) {
+            Json.encodeToString(tryMinifyJson(s) ?: s)
+        }
+        else {
+            s
+        }
+    }
+
+    return res
+}
+
 fun parseObjectOrArray(s: String): JsonElement? {
     val regex = Regex("""^\s*[\[{]""")
     if (regex.containsMatchIn(s)) {

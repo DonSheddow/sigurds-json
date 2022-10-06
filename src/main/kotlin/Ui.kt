@@ -144,7 +144,8 @@ class HttpResponseTab(logging: Logging, private val requestResponse: HttpRequest
     }
 
     override fun getHttpResponse(): HttpResponse {
-        return HttpResponse.httpResponse(requestResponse.httpResponse().headers().map{it.toString()}, jsonEditor.textPane.text)
+        val resp = requestResponse.httpResponse()
+        return HttpResponse.httpResponse(resp.headers().map{it.toString()}, jsonEditor.textPane.text)
     }
 }
 
@@ -162,7 +163,8 @@ class HttpRequestTab(private val logging: Logging, private val requestResponse: 
 
     override fun getHttpRequest(): HttpRequest {
         val req = requestResponse.httpRequest()
-        return HttpRequest.httpRequest(req.httpService(), req.headers().map{it.toString()}, jsonEditor.textPane.text)
+        val text = processMagicTags(jsonEditor.textPane.text, true)
+        return HttpRequest.httpRequest(req.httpService(), req.headers().map{it.toString()}, text)
     }
 }
 
@@ -189,7 +191,7 @@ class JsonEditor(private val logging: Logging) : JPanel(BorderLayout()) {
             Pair(Color(173, 136, 0), Color(50, 186, 166))
         }
         else { // light mode
-            Pair(Color(94, 74, 0), Color(29, 107, 95))
+            Pair(Color(0, 22, 102), Color(4, 110, 10))
         }
     }
 
