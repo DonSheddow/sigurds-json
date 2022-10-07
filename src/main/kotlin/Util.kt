@@ -14,7 +14,7 @@ fun processMagicTags(str: String, minifyJson: Boolean): String {
             Json.encodeToString(tryMinifyJson(s) ?: s)
         }
         else {
-            s
+            Json.encodeToString(s)
         }
     }
 

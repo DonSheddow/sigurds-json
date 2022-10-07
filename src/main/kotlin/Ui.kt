@@ -163,7 +163,7 @@ class HttpRequestTab(private val logging: Logging, private val requestResponse: 
 
     override fun getHttpRequest(): HttpRequest {
         val req = requestResponse.httpRequest()
-        val text = processMagicTags(jsonEditor.textPane.text, true)
+        val text = normalize(jsonEditor.textPane.text)
         return HttpRequest.httpRequest(req.httpService(), req.headers().map{it.toString()}, text)
     }
 }
@@ -179,7 +179,7 @@ class JsonEditor(private val logging: Logging) : JPanel(BorderLayout()) {
         button.addActionListener {
             val oldJson = Json.parseToJsonElement(textPane.text)
             val newText = rewriteNestedJsonWithMagicTags(oldJson)
-            updateBody(newText)
+            insertBody(newText)
         }
         button.border = EmptyBorder(5, 5, 5, 5)
         add(button, BorderLayout.PAGE_START)
@@ -188,14 +188,21 @@ class JsonEditor(private val logging: Logging) : JPanel(BorderLayout()) {
 
     private fun getColors(): Pair<Color, Color> {
         return if (background.red < 127) { // dark mode
-            Pair(Color(173, 136, 0), Color(50, 186, 166))
+            Pair(Color(199, 166, 0), Color(120, 199, 199))
         }
         else { // light mode
-            Pair(Color(0, 22, 102), Color(4, 110, 10))
+            Pair(Color(2, 4, 94), Color(4, 110, 10))
         }
     }
 
     fun updateBody(s: String) {
+        if (normalize(s) == normalize(textPane.text)) {
+            return
+        }
+        insertBody(s)
+    }
+
+    private fun insertBody(s: String) {
         val (k, v) = getColors()
         val cs = when (val res = coloredJsonParser(k, v).tryParseToEnd(s)) {
             is Parsed -> res.value
@@ -203,10 +210,6 @@ class JsonEditor(private val logging: Logging) : JPanel(BorderLayout()) {
                 logging.logToError("Unable to parse JSON: " + res.javaClass.canonicalName)
                 return
             }
-        }
-
-        if (cs.toPlainString() == textPane.text.replace("\r\n", "\n")) {
-            return
         }
 
         textPane.text = ""
@@ -222,4 +225,8 @@ class JsonEditor(private val logging: Logging) : JPanel(BorderLayout()) {
         }
         textPane.caretPosition = 0
     }
+}
+
+fun normalize(s: String): String {
+    return processMagicTags(s.replace("\r\n", "\n"), true)
 }
