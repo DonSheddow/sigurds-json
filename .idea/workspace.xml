@@ -9,7 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Don't update JSON editor unless body has changed" />
+    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Add UndoManager">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -100,7 +102,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.extension4 [jar]">
+  <component name="RunManager" selected="Gradle.extension4 [test]">
     <configuration name="SimpleJsonGrammarTest.testParse7" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -212,9 +214,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.extension4 [test]" />
         <item itemvalue="Gradle.extension4 [jar]" />
         <item itemvalue="Gradle.extension4 [clean]" />
-        <item itemvalue="Gradle.extension4 [test]" />
         <item itemvalue="Gradle.SimpleJsonGrammarTest.testParse7" />
         <item itemvalue="Gradle.SimpleJsonGrammarTest.testParse8" />
       </list>
@@ -397,7 +399,19 @@
       <option name="presentableId" value="LOCAL−00028" />
       <updated>1665132100708</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL−00029" summary="Fix change-tracking">
+      <created>1665132434543</created>
+      <option name="number" value="LOCAL−00029" />
+      <option name="presentableId" value="LOCAL−00029" />
+      <updated>1665132434543</updated>
+    </task>
+    <task id="LOCAL−00030" summary="Add UndoManager">
+      <created>1665133414783</created>
+      <option name="number" value="LOCAL−00030" />
+      <option name="presentableId" value="LOCAL−00030" />
+      <updated>1665133414783</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -412,8 +426,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Initial commit" />
-    <MESSAGE value="Second commit" />
     <MESSAGE value="Add checkbox" />
     <MESSAGE value="Add comment and highlight in logger" />
     <MESSAGE value="Add context menu item" />
@@ -437,7 +449,9 @@
     <MESSAGE value="Add button to parse nested JSON" />
     <MESSAGE value="Rewrite magic tags in JSON editor" />
     <MESSAGE value="Don't update JSON editor unless body has changed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Don't update JSON editor unless body has changed" />
+    <MESSAGE value="Fix change-tracking" />
+    <MESSAGE value="Add UndoManager" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add UndoManager" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

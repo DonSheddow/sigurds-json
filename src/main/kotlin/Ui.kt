@@ -16,12 +16,16 @@ import kotlinx.serialization.json.Json
 import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.Component
+import java.awt.event.ActionEvent
 import java.awt.event.ItemEvent
 import javax.swing.*
 import javax.swing.border.EmptyBorder
 import javax.swing.event.DocumentEvent
 import javax.swing.event.DocumentListener
 import javax.swing.text.StyleConstants
+import javax.swing.undo.CannotRedoException
+import javax.swing.undo.CannotUndoException
+import javax.swing.undo.UndoManager
 
 
 class SuiteTab(private val logging: Logging, private val settings: Settings) : JPanel() {
@@ -177,6 +181,7 @@ class JsonEditor(private val logging: Logging) : JPanel(BorderLayout()) {
     private val doc = textPane.styledDocument
     private val style = textPane.addStyle("style", null)
     private val scrollPane = JScrollPane(textPane)
+    private val undo = UndoManager()
 
     init {
         val button = JButton("Parse nested JSON")
@@ -188,6 +193,29 @@ class JsonEditor(private val logging: Logging) : JPanel(BorderLayout()) {
         button.border = EmptyBorder(5, 5, 5, 5)
         add(button, BorderLayout.PAGE_START)
         add(scrollPane, BorderLayout.CENTER)
+
+        doc.addUndoableEditListener {
+            undo.addEdit(it.edit)
+        }
+
+        textPane.actionMap.put("Undo", object : AbstractAction() {
+            override fun actionPerformed(e: ActionEvent?) {
+                try {
+                    undo.undo()
+                }
+                catch (_: CannotUndoException) {}
+            }
+        })
+        textPane.actionMap.put("Redo", object : AbstractAction() {
+            override fun actionPerformed(e: ActionEvent?) {
+                try {
+                    undo.redo()
+                }
+                catch (_: CannotRedoException) {}
+            }
+        })
+        textPane.inputMap.put(KeyStroke.getKeyStroke("control Z"), "Undo")
+        textPane.inputMap.put(KeyStroke.getKeyStroke("control Y"), "Redo")
     }
 
     private fun getColors(): Pair<Color, Color> {
