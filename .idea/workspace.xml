@@ -9,11 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Rewrite magic tags in JSON editor">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Ui.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Ui.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Util.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Util.kt" afterDir="false" />
-    </list>
+    <list default="true" id="aaee5e8f-c662-486e-ad19-f006ec9c13ab" name="Changes" comment="Don't update JSON editor unless body has changed" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -395,7 +391,13 @@
       <option name="presentableId" value="LOCAL−00027" />
       <updated>1665062129661</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL−00028" summary="Don't update JSON editor unless body has changed">
+      <created>1665132100708</created>
+      <option name="number" value="LOCAL−00028" />
+      <option name="presentableId" value="LOCAL−00028" />
+      <updated>1665132100708</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -434,7 +436,8 @@
     <MESSAGE value="Add button to parse nested JSON (WIP)" />
     <MESSAGE value="Add button to parse nested JSON" />
     <MESSAGE value="Rewrite magic tags in JSON editor" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rewrite magic tags in JSON editor" />
+    <MESSAGE value="Don't update JSON editor unless body has changed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Don't update JSON editor unless body has changed" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

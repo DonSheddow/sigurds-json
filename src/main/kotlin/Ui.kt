@@ -94,7 +94,7 @@ class ContextMenu(private val logging: Logging) : ContextMenuItemsProvider {
 
 abstract class HttpTab(private val logging: Logging, editable: Boolean)  {
     val jsonEditor = JsonEditor(logging)
-    private var changed = false
+    var changed = false
 
     init {
         jsonEditor.textPane.isEditable = editable
@@ -134,6 +134,7 @@ abstract class HttpTab(private val logging: Logging, editable: Boolean)  {
 
 class HttpResponseTab(logging: Logging, private val requestResponse: HttpRequestResponse) : HttpTab(logging, false), ExtensionHttpResponseEditor {
     override fun setHttpRequestResponse(requestResponse: HttpRequestResponse) {
+        changed = false
         val body = requestResponse.httpResponse().bodyAsString()
         jsonEditor.updateBody(body)
     }
@@ -144,6 +145,7 @@ class HttpResponseTab(logging: Logging, private val requestResponse: HttpRequest
     }
 
     override fun getHttpResponse(): HttpResponse {
+        changed = false
         val resp = requestResponse.httpResponse()
         return HttpResponse.httpResponse(resp.headers().map{it.toString()}, jsonEditor.textPane.text)
     }
@@ -152,6 +154,7 @@ class HttpResponseTab(logging: Logging, private val requestResponse: HttpRequest
 
 class HttpRequestTab(private val logging: Logging, private val requestResponse: HttpRequestResponse, editable: Boolean) : HttpTab(logging, editable), ExtensionHttpRequestEditor {
     override fun setHttpRequestResponse(requestResponse: HttpRequestResponse) {
+        changed = false
         val body = requestResponse.httpRequest().bodyAsString()
         jsonEditor.updateBody(body)
     }
@@ -162,6 +165,7 @@ class HttpRequestTab(private val logging: Logging, private val requestResponse: 
     }
 
     override fun getHttpRequest(): HttpRequest {
+        changed = false
         val req = requestResponse.httpRequest()
         val text = normalize(jsonEditor.textPane.text)
         return HttpRequest.httpRequest(req.httpService(), req.headers().map{it.toString()}, text)
